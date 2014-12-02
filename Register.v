@@ -1,5 +1,3 @@
-
-
 module RegisterFile(clk, Aw, Ab, Aa, Dw, Db, Da, WrEn);
 input clk, WrEn;
 input[4:0] Aw, Ab, Aa;

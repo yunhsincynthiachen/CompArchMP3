@@ -1,6 +1,4 @@
-// Register Module Definition:
-// Input: DataOut
-// Output: Imm16, Rd, Rt, Rs
+
 
 module RegisterFile(clk, Aw, Ab, Aa, Dw, Db, Da, WrEn);
 input clk, WrEn;
