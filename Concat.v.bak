@@ -10,13 +10,13 @@ endmodule
 
 module test_concat;
 wire[31:0] concat_out;
-reg[31:0] pc_in, ir_in;
+reg[15:0] pc_in, ir_in;
 
 concat concat_stuff (pc_in, ir_in, concat_out);
 
 initial begin
 $display("pc  ir | cc");
-pc_in={4'b111,28'b0};
+pc_in={4'b1111,28'b0};
 ir_in={6'b0,26'b11111111111111111111111111}; 
 #1000 
 $display("%b  %b | %b", pc_in, ir_in, concat_out);   
