@@ -1,1 +1,1 @@
-vlog -reportprogress 300 -work work FSM.v
+vlog -reportprogress 300 -work work PC_WE_handler.v
