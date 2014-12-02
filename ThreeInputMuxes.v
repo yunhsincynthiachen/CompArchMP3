@@ -29,11 +29,33 @@ $display("%b  %b  %b  %b| %b", B_out, signextend_out, value4, Control_Signal, ou
 end
 endmodule
 
-
-
 module mux_DST(Rd_IR, Rt_IR, value31, control_signal, output_DST);
 input[4:0] Rd_IR, Rt_IR, value31;
 input[1:0] control_signal;
 output[4:0] output_DST;
 
+wire[4:0] mux[2:0]; // Creates a 2d Array of wires
+assign mux[0] = Rd_IR; // Connects the sources of the array
+assign mux[1] = Rt_IR;
+assign mux[2] = value31;
+
+assign output_DST= mux[control_signal]; // Connects the output of the array
+
+endmodule 
+module test_DST;
+wire[4:0] output_DST;
+reg[4:0] Rd_IR, Rt_IR, value31;
+reg[1:0] control_signal;
+
+mux_DST DST(Rd_IR, Rt_IR, value31, control_signal, output_DST);
+
+initial begin
+$display("Rd  Rt  value31  control_signal| output");
+Rd_IR={5'b1};
+Rt_IR={5'b0};
+value31={1'b1,4'b0};
+control_signal={2'b10};
+#1000 
+$display("%b  %b  %b  %b| %b", Rd_IR, Rt_IR, value31, control_signal, output_DST);  
+end
 endmodule 
