@@ -1,0 +1,4 @@
+module value4(four_out);
+output four_out[31:0] = 0x04;
+
+endmodule 

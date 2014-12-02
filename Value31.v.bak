@@ -1,0 +1,4 @@
+module value31(register_out);
+output register_out[4:0] = 'b11111;
+
+endmodule 

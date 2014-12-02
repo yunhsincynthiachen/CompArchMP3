@@ -1,0 +1,6 @@
+module wordlatches_nowren(clk, input_word, output_word);
+input clk;
+input[31:0] input_word;
+output[31:0] output_word;
+
+endmodule 
