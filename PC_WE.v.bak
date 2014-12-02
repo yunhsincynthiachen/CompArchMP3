@@ -1,3 +1,0 @@
-module pc_we_handler(ALUzero_out, PC);
-
-endmodule 
