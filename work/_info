@@ -52,7 +52,7 @@ r1
 R11
 n@f@s@m
 vmux_ALUsrcB
-Z13 !s110 1417494699
+Z13 !s110 1417573311
 !i10b 1
 !s100 3f6?hF7boHKna]kEBWG^_0
 IJS:WgDJ@ZHWzkV3:N_=h21
@@ -66,7 +66,7 @@ R7
 r1
 !s85 0
 31
-Z17 !s108 1417494699.297000
+Z17 !s108 1417573311.547000
 Z18 !s107 ThreeInputMuxes.v|
 Z19 !s90 -reportprogress|300|-work|work|ThreeInputMuxes.v|
 !s101 -O0
@@ -170,7 +170,7 @@ R3
 R4
 R5
 R6
-L0 11
+Z35 L0 11
 R7
 r1
 !s85 0
@@ -246,45 +246,129 @@ R33
 !i113 1
 R11
 vtest_twoinputmuxes
-Z35 !s110 1417492699
+Z36 !s110 1417492699
 !i10b 1
 !s100 [aJf063Lo[cLz7Z3hdg8Q0
 I7?TgF91K[R46]7:?H>kBK0
 R2
 R3
-Z36 w1417492697
-Z37 8TwoInputMuxes.v
-Z38 FTwoInputMuxes.v
+Z37 w1417492697
+Z38 8TwoInputMuxes.v
+Z39 FTwoInputMuxes.v
 R34
 R7
 r1
 !s85 0
 31
-Z39 !s108 1417492698.966000
-Z40 !s107 TwoInputMuxes.v|
-Z41 !s90 -reportprogress|300|-work|work|TwoInputMuxes.v|
+Z40 !s108 1417492698.966000
+Z41 !s107 TwoInputMuxes.v|
+Z42 !s90 -reportprogress|300|-work|work|TwoInputMuxes.v|
+!s101 -O0
+!i113 1
+R11
+vtest_wordlatches_nowren
+Z43 !s110 1417575050
+!i10b 1
+!s100 g^]H0cnj6Ef@Hk_g1I:IB3
+IZKdRPH:SiZU]^@[adhI=j2
+R2
+R0
+Z44 w1417575047
+Z45 8WordLatches.v
+Z46 FWordLatches.v
+R35
+R7
+r1
+!s85 0
+31
+Z47 !s108 1417575049.966000
+Z48 !s107 WordLatches.v|
+Z49 !s90 -reportprogress|300|-work|work|WordLatches.v|
+!s101 -O0
+!i113 1
+R11
+vtest_wordlatches_wren
+R43
+!i10b 1
+!s100 o9VmI9GleC2CJhQ<zNb7O3
+I6kYP7>;CzmKCzg43Q@`HI1
+R2
+R0
+R44
+R45
+R46
+L0 40
+R7
+r1
+!s85 0
+31
+R47
+R48
+R49
 !s101 -O0
 !i113 1
 R11
 vTwoInputMuxes
-R35
+R36
 !i10b 1
 !s100 ]QT7L_ji=?dnzI1a]7>8j1
 ID@X?9fh>aeAo6<Qj;z`7P0
 R2
 R3
-R36
 R37
 R38
+R39
 L0 1
 R7
 r1
 !s85 0
 31
-R39
 R40
 R41
+R42
 !s101 -O0
 !i113 1
 R11
 n@two@input@muxes
+vwordlatches_nowren
+R43
+!i10b 1
+!s100 T>[5eV^H`kJ@eQ:ea?aGE0
+I0LmlO;92bRMkY::?A`NZM2
+R2
+R0
+R44
+R45
+R46
+L0 1
+R7
+r1
+!s85 0
+31
+R47
+R48
+R49
+!s101 -O0
+!i113 1
+R11
+vwordlatches_wren
+R43
+!i10b 1
+!s100 z]=EcOYnl77JHIaPAH<X82
+I`F8QB1VOa^eZ_h;AORY;03
+R2
+R0
+R44
+R45
+R46
+L0 28
+R7
+r1
+!s85 0
+31
+R47
+R48
+R49
+!s101 -O0
+!i113 1
+R11
