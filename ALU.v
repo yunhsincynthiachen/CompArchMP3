@@ -29,8 +29,8 @@ input[2:0] ALUcommand;
 always @(ALUcommand) begin
     case (ALUcommand)
     `ADD: begin muxindex = 0; invertB=0; invertOut = 0; Cin = 0; end 
-    `SUB: begin muxindex = 0; invertB=1; invertOut = 0; Cin = 1; end
-    `XOR: begin muxindex = 1; invertB=0; invertOut = 0; Cin = 0; end 
+    `SUB: begin muxindex = 1; invertB=1; invertOut = 0; Cin = 1; end
+    `XOR: begin muxindex = 2; invertB=0; invertOut = 0; Cin = 0; end 
     `SLT: begin muxindex = 2; invertB=1; invertOut = 0; Cin = 1; end
     `AND: begin muxindex = 3; invertB=0; invertOut = 1; Cin = 0; end 
     `NAND: begin muxindex = 3; invertB=0; invertOut = 0; Cin = 0; end

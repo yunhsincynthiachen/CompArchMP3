@@ -73,111 +73,133 @@ r1
 !i113 1
 R11
 n@f@s@m
+vInstructionRegister
+Z13 !s110 1417577762
+!i10b 1
+!s100 DlE`LEK8H7P5Q3Mb:1K3h3
+ITbf>_o6z:BBk_dlNUAGSe2
+R2
+R3
+Z14 w1417577753
+Z15 8InstructionRegister.v
+Z16 FInstructionRegister.v
+L0 4
+R7
+r1
+!s85 0
+31
+Z17 !s108 1417577762.684000
+Z18 !s107 InstructionRegister.v|
+Z19 !s90 -reportprogress|300|-work|work|InstructionRegister.v|
+!s101 -O0
+!i113 1
+R11
+n@instruction@register
 vmux_ALUsrcB
-Z13 !s110 1417494699
+Z20 !s110 1417573311
 !i10b 1
 !s100 3f6?hF7boHKna]kEBWG^_0
 IJS:WgDJ@ZHWzkV3:N_=h21
 R2
 R0
-Z14 w1417494696
-Z15 8ThreeInputMuxes.v
-Z16 FThreeInputMuxes.v
+Z21 w1417494696
+Z22 8ThreeInputMuxes.v
+Z23 FThreeInputMuxes.v
 L0 1
 R7
 r1
 !s85 0
 31
-Z17 !s108 1417494699.297000
-Z18 !s107 ThreeInputMuxes.v|
-Z19 !s90 -reportprogress|300|-work|work|ThreeInputMuxes.v|
+Z24 !s108 1417573311.547000
+Z25 !s107 ThreeInputMuxes.v|
+Z26 !s90 -reportprogress|300|-work|work|ThreeInputMuxes.v|
 !s101 -O0
 !i113 1
 R11
 nmux_@a@l@usrc@b
 vmux_DST
-R13
+R20
 !i10b 1
 !s100 WY^KMZe9D_BUHA`WG05j;0
 IgGYiOfDl=dW;c4DVj];=S1
 R2
 R0
-R14
-R15
-R16
+R21
+R22
+R23
 L0 32
 R7
 r1
 !s85 0
 31
-R17
-R18
-R19
+R24
+R25
+R26
 !s101 -O0
 !i113 1
 R11
 nmux_@d@s@t
 vPC_WE_handler
-Z20 !s110 1417500060
+Z27 !s110 1417500060
 !i10b 1
 !s100 29LDU]:`c7a::CCWd5PFT1
 I^>?j>PoQRb4<L<3]m3V?F3
 R2
 R12
-Z21 w1417500058
-Z22 8PC_WE_handler.v
-Z23 FPC_WE_handler.v
+Z28 w1417500058
+Z29 8PC_WE_handler.v
+Z30 FPC_WE_handler.v
 L0 1
 R7
 r1
 !s85 0
 31
-Z24 !s108 1417500060.360000
-Z25 !s107 PC_WE_handler.v|
-Z26 !s90 -reportprogress|300|-work|work|PC_WE_handler.v|
+Z31 !s108 1417500060.360000
+Z32 !s107 PC_WE_handler.v|
+Z33 !s90 -reportprogress|300|-work|work|PC_WE_handler.v|
 !s101 -O0
 !i113 1
 R11
 n@p@c_@w@e_handler
 vsignextend
-Z27 !s110 1417490679
+Z34 !s110 1417490679
 !i10b 1
 !s100 <bPl;_anIdDc`OkLHTIWV2
 IQZhhf5nV_fB2Zne?zi_5j3
 R2
 R0
-Z28 w1417490441
-Z29 8SignExtend.v
-Z30 FSignExtend.v
+Z35 w1417490441
+Z36 8SignExtend.v
+Z37 FSignExtend.v
 L0 1
 R7
 r1
 !s85 0
 31
-Z31 !s108 1417490679.726000
-Z32 !s107 SignExtend.v|
-Z33 !s90 -reportprogress|300|-work|work|SignExtend.v|
+Z38 !s108 1417490679.726000
+Z39 !s107 SignExtend.v|
+Z40 !s90 -reportprogress|300|-work|work|SignExtend.v|
 !s101 -O0
 !i113 1
 R11
 vtest_ALUsrcB
-R13
+R20
 !i10b 1
 !s100 0ikBUS8FkoO5LbISZhNT62
 I^TF4AE]TV=];HQW77H_?I3
 R2
 R0
-R14
-R15
-R16
-Z34 L0 14
+R21
+R22
+R23
+Z41 L0 14
 R7
 r1
 !s85 0
 31
-R17
-R18
-R19
+R24
+R25
+R26
 !s101 -O0
 !i113 1
 R11
@@ -192,7 +214,7 @@ R3
 R4
 R5
 R6
-L0 11
+Z42 L0 11
 R7
 r1
 !s85 0
@@ -204,38 +226,16 @@ R10
 !i113 1
 R11
 vtest_DST
-R13
+R20
 !i10b 1
 !s100 AMcoaJWMQFnIWOgD48H_f2
 IMV8XS?>T[XEbm37HDK=Wd3
 R2
 R0
-R14
-R15
-R16
-L0 45
-R7
-r1
-!s85 0
-31
-R17
-R18
-R19
-!s101 -O0
-!i113 1
-R11
-ntest_@d@s@t
-vtest_handler
-R20
-!i10b 1
-!s100 Y9_43bzj4m_LGaG:oC2@R1
-ITl;VzZU2F3kf_Yl47>N4c1
-R2
-R12
 R21
 R22
 R23
-L0 18
+L0 45
 R7
 r1
 !s85 0
@@ -246,17 +246,18 @@ R26
 !s101 -O0
 !i113 1
 R11
-vtest_signextend
+ntest_@d@s@t
+vtest_handler
 R27
 !i10b 1
-!s100 O`l<e`GG7:`Ya]:mf:>V72
-I=L4nY=B;50NUXkVhWe]=D2
+!s100 Y9_43bzj4m_LGaG:oC2@R1
+ITl;VzZU2F3kf_Yl47>N4c1
 R2
-R0
+R12
 R28
 R29
 R30
-L0 9
+L0 18
 R7
 r1
 !s85 0
@@ -267,46 +268,172 @@ R33
 !s101 -O0
 !i113 1
 R11
+vtest_ir
+R13
+!i10b 1
+!s100 PTmfomm3AH^z^];eK?YG41
+ICg?8;hRe?b93d><Z;m7XZ2
+R2
+R3
+R14
+R15
+R16
+L0 22
+R7
+r1
+!s85 0
+31
+R17
+R18
+R19
+!s101 -O0
+!i113 1
+R11
+vtest_signextend
+R34
+!i10b 1
+!s100 O`l<e`GG7:`Ya]:mf:>V72
+I=L4nY=B;50NUXkVhWe]=D2
+R2
+R0
+R35
+R36
+R37
+L0 9
+R7
+r1
+!s85 0
+31
+R38
+R39
+R40
+!s101 -O0
+!i113 1
+R11
 vtest_twoinputmuxes
-Z35 !s110 1417492699
+Z43 !s110 1417492699
 !i10b 1
 !s100 [aJf063Lo[cLz7Z3hdg8Q0
 I7?TgF91K[R46]7:?H>kBK0
 R2
 R3
-Z36 w1417492697
-Z37 8TwoInputMuxes.v
-Z38 FTwoInputMuxes.v
-R34
+Z44 w1417492697
+Z45 8TwoInputMuxes.v
+Z46 FTwoInputMuxes.v
+R41
 R7
 r1
 !s85 0
 31
-Z39 !s108 1417492698.966000
-Z40 !s107 TwoInputMuxes.v|
-Z41 !s90 -reportprogress|300|-work|work|TwoInputMuxes.v|
+Z47 !s108 1417492698.966000
+Z48 !s107 TwoInputMuxes.v|
+Z49 !s90 -reportprogress|300|-work|work|TwoInputMuxes.v|
+!s101 -O0
+!i113 1
+R11
+vtest_wordlatches_nowren
+Z50 !s110 1417575050
+!i10b 1
+!s100 g^]H0cnj6Ef@Hk_g1I:IB3
+IZKdRPH:SiZU]^@[adhI=j2
+R2
+R0
+Z51 w1417575047
+Z52 8WordLatches.v
+Z53 FWordLatches.v
+R42
+R7
+r1
+!s85 0
+31
+Z54 !s108 1417575049.966000
+Z55 !s107 WordLatches.v|
+Z56 !s90 -reportprogress|300|-work|work|WordLatches.v|
+!s101 -O0
+!i113 1
+R11
+vtest_wordlatches_wren
+R50
+!i10b 1
+!s100 o9VmI9GleC2CJhQ<zNb7O3
+I6kYP7>;CzmKCzg43Q@`HI1
+R2
+R0
+R51
+R52
+R53
+L0 40
+R7
+r1
+!s85 0
+31
+R54
+R55
+R56
 !s101 -O0
 !i113 1
 R11
 vTwoInputMuxes
-R35
+R43
 !i10b 1
 !s100 ]QT7L_ji=?dnzI1a]7>8j1
 ID@X?9fh>aeAo6<Qj;z`7P0
 R2
 R3
-R36
-R37
-R38
+R44
+R45
+R46
 L0 1
 R7
 r1
 !s85 0
 31
-R39
-R40
-R41
+R47
+R48
+R49
 !s101 -O0
 !i113 1
 R11
 n@two@input@muxes
+vwordlatches_nowren
+R50
+!i10b 1
+!s100 T>[5eV^H`kJ@eQ:ea?aGE0
+I0LmlO;92bRMkY::?A`NZM2
+R2
+R0
+R51
+R52
+R53
+L0 1
+R7
+r1
+!s85 0
+31
+R54
+R55
+R56
+!s101 -O0
+!i113 1
+R11
+vwordlatches_wren
+R50
+!i10b 1
+!s100 z]=EcOYnl77JHIaPAH<X82
+I`F8QB1VOa^eZ_h;AORY;03
+R2
+R0
+R51
+R52
+R53
+L0 28
+R7
+r1
+!s85 0
+31
+R54
+R55
+R56
+!s101 -O0
+!i113 1
+R11
