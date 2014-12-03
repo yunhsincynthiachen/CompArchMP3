@@ -6,7 +6,8 @@ module DataMemory(clk, dataOut, address, writeEnable, dataIn);
 input clk, writeEnable;
 input[31:0] dataIn, address;
 output[31:0] dataOut;
-assign reg[9:0] addr = address[31:23];
+wire[9:0] addr;
+assign addr = address[9:0];
 
 reg[31:0] mem[1023:0];
 
