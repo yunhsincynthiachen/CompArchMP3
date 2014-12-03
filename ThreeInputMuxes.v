@@ -4,9 +4,9 @@ input[1:0] control_signal;
 output[31:0] output_ALUsrcB;
 
 wire[31:0] mux[2:0]; // Creates a 2d Array of wires
-assign mux[0] = B_out; // Connects the sources of the array
-assign mux[1] = signextend_out;
-assign mux[2] = value4;
+assign mux[1] = B_out; // Connects the sources of the array 
+assign mux[2] = signextend_out; //look at the control spec to see how they are connected
+assign mux[0] = value4;
 
 assign output_ALUsrcB = mux[control_signal]; // Connects the output of the array
 endmodule 
@@ -36,7 +36,7 @@ output[4:0] output_DST;
 
 wire[4:0] mux[2:0]; // Creates a 2d Array of wires
 assign mux[0] = Rd_IR; // Connects the sources of the array
-assign mux[1] = Rt_IR;
+assign mux[1] = Rt_IR; //follows the control spec values
 assign mux[2] = value31;
 
 assign output_DST= mux[control_signal]; // Connects the output of the array
