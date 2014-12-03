@@ -1,19 +1,21 @@
-module CPU(clk); //not yet sure about the definition, should probably include the program output
+module CPU(clk, instruction, state_out); //not yet sure about the definition, should probably include the program output
 input clk;
+output[31:0] instruction;
+output[3:0] state_out;
 
 wire sig_mem_we, sig_ir_we, sig_reg_we, sig_mem_in, sig_reg_in, sig_ALUsrcA, sig_ALUop; //single bit control sigs
 wire[1:0]  sig_pc_we, sig_dst, sig_ALUsrcB, sig_pc_src; //two bit control sigs
-wire[31:0] instruction;
-wire[3:0] state_in, state_out;
-FSM myFSM(clk, instruction, sig_pc_we, sig_mem_we, sig_ir_we, sig_reg_we, sig_mem_in, sig_dst, sig_reg_in, sig_ALUsrcA, sig_ALUsrcB, sig_ALUop, sig_pc_src, state_out, state_out);
 
-wire [31:0] output_pc_src;
+wire [31:0] output_pc_src, pc_output, Da, Db, Dw, ALU_RES_out, ALU_result, concat_out, data_memory_out, MDR_out, data_mem_address, signextend_out, operandA, operandB;
+wire [15:0] imm16;
+wire [4:0]  Rd_IR, Rt_IR, Rs_IR, value31_out;
+wire [1:0]  value4_out;
+wire pc_handler_out, ALUzero_out, carryout, overflow;
+
+FSM myFSM(clk, instruction, sig_pc_we, sig_mem_we, sig_ir_we, sig_reg_we, sig_mem_in, sig_dst, sig_reg_in, sig_ALUsrcA, sig_ALUsrcB, sig_ALUop, sig_pc_src, state_out, state_out);
 mux_pc_src 		mymux_pc_src(Da, ALU_RES_out, ALU_result, concat_out, sig_pc_src, output_pc_src);
-wire pc_handler_out;
 //PC_WE_handler(ALUzero_out, pc_we, handler_out);
 PC_WE_handler 		myPC_WE_handler(ALUzero_out, sig_pc_we, pc_handler_out);
-
-wire [31:0] pc_output; 
 wordlatches_wren 	myprogam_counter(clk, output_pc_src, pc_output, pc_handler_out);//takes the handler_out, and gets input from PC_src
 
 //InstructionRegister(clk,instr_in,instr_out, imm16, Rd, Rt, Rs, ir_we);
@@ -41,7 +43,4 @@ ALU 			myALU(ALU_result, carryout, ALUzero_out, overflow, operandA, operandB, si
 
 wordlatches_nowren 	myALU_RES(clk, ALU_result, ALU_RES_out);
 concat 			myconcat(pc_output, instruction, concat_out);
-
-TwoInputMuxes(wordA, wordB, sig_TwoInput, output_twoinput);
-wordlatches_nowren(clk, input_word, output_word);
 endmodule
