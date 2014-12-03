@@ -10,14 +10,14 @@
 `define XORGATE xor #60
 
 // defining ALU commands as words
-`define ADD 1'd0
-`define SUB 1'd1
-//`define XOR 3'd2
-//`define SLT 3'd3
-//`define AND 3'd4
-//`define NAND 3'd5
-//`define NOR 3'd6
-//`define OR 3'd7
+`define ADD 3'd0
+`define SUB 3'd1
+`define XOR 3'd2
+`define SLT 3'd3
+`define AND 3'd4
+`define NAND 3'd5
+`define NOR 3'd6
+`define OR 3'd7
 
 module ALUcontrolLUT(muxindex, invertB, invertOut, Cin, ALUcommand);
 // Behavioral LUT, mostly provided but configured with specific control flags
@@ -25,7 +25,7 @@ output reg[2:0] muxindex;
 output reg invertB;
 output reg invertOut;
 output reg Cin;
-input ALUcommand;
+input[2:0] ALUcommand;
 always @(ALUcommand) begin
     case (ALUcommand)
     `ADD: begin muxindex = 0; invertB=0; invertOut = 0; Cin = 0; end 
@@ -166,7 +166,7 @@ output zero;
 output overflow;
 input[31:0] operandA;
 input[31:0] operandB;
-input command; //the ALU commands, now one bit
+input[2:0] command;
 
 // Get control settings from LUT
 wire [2:0] addr;
@@ -237,7 +237,7 @@ endmodule
 module testALU;
 reg [31:0] A;
 reg [31:0] B;
-reg command;
+reg [2:0] command;
 wire [31:0] res;
 wire Cout;
 wire zero;
@@ -302,5 +302,133 @@ A=32'b01111111111111111111111111111111;B=32'b01111111111111111111111111111111; #
 $display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 1 1 0", A, B, res, Cout, zero, ovfl);
 A=32'b01010101010101010101010101010101;B=32'b01010101010101010101010101010100; #3500
 $display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000001 1 0 0", A, B, res, Cout, zero, ovfl);
+
+command=`XOR;
+$display("XOR");
+$display("A                                | B                                || RES                              | Cout | Zero | OVFL || Expected");
+$display("Testing corner cases");
+A=32'b00000000000000000000000000000000;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing A Combination");
+A=32'b10100000000001100001010000000111;B=32'b11111111110000000001010001000001; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 01011111110001100000000001000110 0 0 0", A, B, res, Cout, zero, ovfl);
+
+command=`SLT;
+$display("SLT");
+$display("A                                | B                                || RES                              | Cout | Zero | OVFL || Expected");
+$display("Testing corner cases");
+A=32'b00000000000000000000000000000000;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+$display("Testing negative overflow");
+A=32'b10000000000000000000000000000001;B=32'b00000000000000000000000000000010; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000001 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing positive overflow");
+A=32'b01111111111111111111111111111111;B=32'b10000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+$display("Testing Carryouts");
+A=32'b00000000000000000000000000000001;B=32'b11111111111111111111111111111110; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111110; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111110;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000001 0 0 0", A, B, res, Cout, zero, ovfl);
+
+command=`NOR;
+$display("NOR");
+$display("A                                | B                                || RES                              | Cout | Zero | OVFL || Expected");
+$display("Testing corner cases");
+A=32'b00000000000000000000000000000000;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+$display("Testing A Combination");
+A=32'b10100000000001100001010000000111;B=32'b11111111110000000001010001000001; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000001110011110101110111000 0 0 0", A, B, res, Cout, zero, ovfl);
+
+command=`OR;
+$display("OR");
+$display("A                                | B                                || RES                              | Cout | Zero | OVFL || Expected");
+$display("Testing corner cases");
+A=32'b00000000000000000000000000000000;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing zeros");
+A=32'b10000000000000000000000000000000;B=32'b10000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 10000000000000000000000000000000 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b00000000000000000000000000000001;B=32'b00000000000000000000000000000001; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000001 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing ones");
+A=32'b10101010101010101010101010101010;B=32'b01010101010101010101010101010101; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111110000000000000000;B=32'b00000000000000001111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing random for good measure");
+A=32'b11001000001100101101001110100101;B=32'b00011000000110111100100111001110; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11011000001110111101101111101111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b01101010111011001001000011010011;B=32'b00111110010100111000100000101011; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 01111110111111111001100011111011 0 0 0", A, B, res, Cout, zero, ovfl);
+
+command=`NAND;
+$display("NAND");
+$display("A                                | B                                || RES                              | Cout | Zero | OVFL || Expected");
+$display("Testing corner cases");
+A=32'b00000000000000000000000000000000;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing zeros");
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+$display("Testing ones");
+A=32'b10101010101010101010101010101010;B=32'b01010101010101010101010101010101; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111110000000000000000;B=32'b00000000000000001111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing random");
+A=32'b10101010101010101010101010101010;B=32'b10101010101010101010101010101010; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 01010101010101010101010101010101 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111110000000000000000;B=32'b11111111111111110000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000001111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11001000001100101101001110100101;B=32'b00011000000110111100100111001110; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11110111111011010011111001111011 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b01101010111011001001000011010011;B=32'b00111110010100111000100000101011; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11010101101111110111111111111100 0 0 0", A, B, res, Cout, zero, ovfl);
+
+command=`AND;
+$display("AND");
+$display("A                                | B                                || RES                              | Cout | Zero | OVFL || Expected");
+$display("Testing corner cases");
+A=32'b00000000000000000000000000000000;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b00000000000000000000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111111111111111111111;B=32'b11111111111111111111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111111111111111111111 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing zeros");
+A=32'b10101010101010101010101010101010;B=32'b01010101010101010101010101010101; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111110000000000000000;B=32'b00000000000000001111111111111111; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00000000000000000000000000000000 0 1 0", A, B, res, Cout, zero, ovfl);
+$display("Testing ones");
+A=32'b10101010101010101010101010101010;B=32'b10101010101010101010101010101010; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 10101010101010101010101010101010 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b11111111111111110000000000000000;B=32'b11111111111111110000000000000000; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 11111111111111110000000000000000 0 0 0", A, B, res, Cout, zero, ovfl);
+$display("Testing random for good measure");
+A=32'b11001000001100101101001110100101;B=32'b00011000000110111100100111001110; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00001000000100101100000110000100 0 0 0", A, B, res, Cout, zero, ovfl);
+A=32'b01101010111011001001000011010011;B=32'b00111110010100111000100000101011; #3500
+$display("%b | %b || %b | %b    | %b    | %b    || 00101010010000001000000000000011 0 0 0", A, B, res, Cout, zero, ovfl);
 end
-endmodule 
+endmodule
