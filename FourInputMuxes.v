@@ -4,9 +4,9 @@ input[1:0] control_signal;
 output[31:0] output_pc_src;
 
 wire[31:0] mux[3:0];
-assign mux[0] = A_out;
+assign mux[2] = A_out;//arguments of the mux follow the control spec
 assign mux[1] = ALU_res;
-assign mux[2] = ALU;
+assign mux[0] = ALU;
 assign mux[3] = Concat_out;
 
 
