@@ -1,8 +1,0 @@
-// Memory Module Definition: 
-// Input: DataIn, Address
-// Output: DataOut
-
-module DataMemory(clk, dataOut, address, writeEnable, dataIn);
-
-
-endmodule 
