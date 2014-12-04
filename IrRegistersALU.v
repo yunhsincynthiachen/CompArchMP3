@@ -41,26 +41,32 @@ initial clk=0;
 always #10 clk=!clk;    // 50MHz Clock
 
 initial begin
-instr_in={4'b1101,5'b00101,7'b0100111,8'b10101010,8'b0};
-pc_in = {10'b0,5'b11111,17'b0};
+instr_in={4'b1101,5'b00101,7'b0100111,8'b10101010,8'b0}; //instruction going into the instruction register
+pc_in = {10'b0,5'b11111,17'b0}; //pc_in value
 #40
-Dw={4'b1101,5'b00001,7'b0100111,8'b10101010,8'b0};
+Dw={4'b1101,5'b00001,7'b0100111,8'b10101010,8'b0}; //data that is written
 ir_we = 'b1;
 #20
-control_signalDST = 2'b01; //should pull Rt
+control_signalDST = 2'b01; //pulls Rt
 WrEn = 'b1;
 #20
 Dw={4'b1101,5'b00001,7'b0100111,8'b10101010,8'b0};
 ir_we = 'b1;
-control_signalDST = 2'b00; //should pull Rd
+control_signalDST = 2'b00; //pulls Rd
 WrEn = 'b1;
 #20
 WrEn = 'b0;
 #20
 control_signalALUa = 'b1; //should pull A
-#20
 control_signalALUb = 2'b01; //should pull B
 #20
-command = 1'b0;
+command = 1'b0; //adds A and B, expected 10100001010011110101010000000000
+#60 //gives enough delay to view in the waveform
+control_signalALUa = 'b0; //PC_in comes out of muxA; B still comes out of muxB; adds PC_in and B, expected 1010000111001011010101000000000
+#60 //gives enough delay to view in the waveform
+control_signalALUb = 2'b00; //4 comes out of muxB; A still comes out of PC_in; adds PC_in and 4, expected 00000000001111100000000000000100
+#60 //gives enough delay to view in the waveform
+control_signalALUb = 2'b10; //signextend comes out of muxB
+control_signalALUa = 'b1; //should pull A; adds A with signextend, expected 111010000101001110101010000000000
 end
 endmodule 
