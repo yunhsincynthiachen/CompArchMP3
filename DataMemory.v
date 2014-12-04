@@ -2,12 +2,12 @@
 // Input: DataIn, Address
 // Output: DataOut
 
-module DataMemory(clk, dataOut, address, writeEnable, dataIn);
+module DataMemory(clk, dataOut, address, writeEnable, dataIn, topstack);
 input clk, writeEnable;
 input[31:0] dataIn, address;
-output[31:0] dataOut;
+output[31:0] dataOut, topstack;
 wire[13:0] addr;
-assign addr = address[13:0];
+assign addr = address[16:0];
 
 reg[31:0] mem[16384:0];
 
@@ -19,13 +19,15 @@ end
 
 initial $readmemh("f2dump.dat", mem);
 assign dataOut = mem[addr/4];
+assign topstack = mem[4094];
 endmodule 
 
 module test_data_memory;
 reg clk, writeEnable;
 reg[31:0] dataIn, address;
 wire[31:0] dataOut;
-DataMemory mydatamemory(clk, dataOut, address, writeEnable, dataIn);
+wire[31:0] topstack;
+DataMemory mydatamemory(clk, dataOut, address, writeEnable, dataIn, topstack);
 
 initial clk = 0;
 always #10 clk=!clk;
@@ -47,8 +49,20 @@ $display("%h %h %b", address, dataOut, dataOut);
 address = 'h0000000c;
 #20
 $display("%h %h %b", address, dataOut, dataOut);
+
+address = 'h0000000c;
+writeEnable = 1;
+dataIn = 'b00000000000000000000000000001000;
+#20
+$display("%h %h %b", address, dataOut, dataOut);
+address = 'h0000000c;
+writeEnable = 0;
+dataIn = 'b00000000000000000000000000001000;
+#20
+$display("%h %h %b", address, dataOut, dataOut);
 end
 endmodule
+
 /*
 
 DataMemory datamemory(clk, dataOut, address, writeEnable, dataIn);

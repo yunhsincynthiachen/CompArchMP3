@@ -12,6 +12,9 @@ sim:/testCPU/concat_out\
 sim:/testCPU/pc_handler_out\
 sim:/testCPU/data_memory_out\
 sim:/testCPU/data_mem_address\
+sim:/testCPU/sig_mem_in\
+sim:/testCPU/sig_mem_we\
+sim:/testCPU/topstack\
 sim:/testCPU/sig_ir_we\
 sim:/testCPU/stackpointer\
 sim:/testCPU/at\

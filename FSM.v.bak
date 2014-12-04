@@ -15,7 +15,7 @@ assign opcode_secondary = data_memory_out[31:26];
 wire[4:0] funct4;
 wire[4:0] funct4_secondary;
 assign funct4 = instruction[3:0]; //the final four bits differentiate between ADD and JR
-assign funct4_secondary = instruction[3:0];
+assign funct4_secondary = data_memory_out[3:0];
 reg[4:0] state   = 'b10000;//start in the BOOT_STATE
 //assign state_out = state;
 

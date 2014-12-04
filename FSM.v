@@ -103,9 +103,9 @@ always @(posedge clk) begin
 
 
 		state_ID_undifferentiated: begin
-		$display("data_memory_out %h", data_memory_out);
-		$display("opcode_secondary %b", opcode_secondary);
-		$display("funct4_secondary %b", funct4_secondary);
+//		$display("data_memory_out %h", data_memory_out);
+//		$display("opcode_secondary %b", opcode_secondary);
+//		$display("funct4_secondary %b", funct4_secondary);
 		if ((opcode_secondary == opcode_ADD) && (funct4_secondary == funct4_ADD)) begin //emits no control signals
 			$display("state_ID_SW_LW_ADD_ADDI");
 			state_out <= state_EX_ADD;
