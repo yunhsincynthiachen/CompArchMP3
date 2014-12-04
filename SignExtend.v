@@ -14,7 +14,7 @@ signextend sigex(imm16_ir, signextend_out);
 
 initial begin
 $display("im | se");
-imm16_ir={3'b101,13'b0}; 
+imm16_ir={3'b001,5'b0,8'b11011101}; 
 #1000 
 $display("%b | %b", imm16_ir, signextend_out);   
 end
