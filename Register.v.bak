@@ -10,7 +10,8 @@ module RegisterFile(clk,		// Contents of first register read
 		stackpointer,
 		a0,
 		a1,
-		v0);
+		v0,
+		at);
 			
 
 output[31:0]	Da;
@@ -26,13 +27,15 @@ output[31:0] 	stackpointer;
 output[31:0]	a0;
 output[31:0]	a1;
 output[31:0]	v0;
+output[31:0]	at;
 wire[31:0] decoder_out;
 wire[31:0] q[31:0];
 assign v1output = q[3];
-assign stackpointer = q[31];
+assign stackpointer = q[29];
 assign a0	= q[4];
 assign a1	= q[5];
 assign v0	= q[2];
+assign v0	= q[1];
 // The decoder is instantiated, as specified by the diagram
 decoder1to32 decoder(decoder_out, WrEn, Aw);
 
@@ -283,13 +286,14 @@ module register32zero(q, d, wrenable, clk);
 input[31:0] d;
 input wrenable;
 input clk;
-output reg[31:0] q;
-
+output[31:0] q;
+assign q = 'b00000000000000000000000000000000;
+/*
 always @(posedge clk) begin
     if(wrenable) begin
 	assign q = 'b00000000000000000000000000000000;
     end
-end
+end*/
 endmodule
 
 

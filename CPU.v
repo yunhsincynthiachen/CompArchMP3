@@ -1,22 +1,23 @@
-module CPU(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw, Rd_IR, Rt_IR, Rs_IR, sig_dst, sig_reg_in, sig_reg_we, output_pc_src, sig_pc_src, pc_handler_out); 
+module CPU(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw, Rd_IR, Rt_IR, Rs_IR, sig_dst, sig_reg_in, sig_reg_we, output_pc_src, sig_pc_src, pc_handler_out, sig_ir_we, data_memory_out, data_mem_address, concat_out, at); 
 input clk;
 output[31:0] instruction;
-output[3:0] state_out;
+output[4:0] state_out;
 output[31:0] pc_output;
-output[31:0] v1, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out,  operandA, operandB, Dw, output_pc_src;
+output[31:0] v1, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out,  operandA, operandB, Dw, output_pc_src, data_memory_out, data_mem_address, concat_out, at;
 output[4:0] Rd_IR, Rt_IR, Rs_IR, output_DST;
 output[1:0] sig_dst, sig_pc_src;
-output sig_reg_in, sig_reg_we, pc_handler_out;
-wire sig_mem_we, sig_ir_we, sig_mem_in, sig_ALUsrcA, sig_ALUop; //single bit control sigs
+output sig_reg_in, sig_reg_we, pc_handler_out, sig_ir_we;
+wire sig_mem_we, sig_mem_in, sig_ALUsrcA, sig_ALUop; //single bit control sigs
 wire[1:0]  sig_pc_we, sig_ALUsrcB; //two bit control sigs
 
-wire [31:0] Da, Db, Dw, concat_out, data_memory_out, MDR_out, data_mem_address, signextend_out;
+wire [31:0] Da, Db, Dw, MDR_out, signextend_out;
 wire [15:0] imm16;
 wire [4:0]  value31_out;
 wire [31:0]  value4_out;
 wire ALUzero_out, carryout, overflow;
 
-FSM myFSM(clk, instruction, sig_pc_we, sig_mem_we, sig_ir_we, sig_reg_we, sig_mem_in, sig_dst, sig_reg_in, sig_ALUsrcA, sig_ALUsrcB, sig_ALUop, sig_pc_src, state_out, state_out);
+FSM myFSM(clk, instruction, sig_pc_we, sig_mem_we, sig_ir_we, sig_reg_we, sig_mem_in, sig_dst, sig_reg_in, sig_ALUsrcA, sig_ALUsrcB, sig_ALUop, sig_pc_src, state_out, state_out, data_memory_out);
+// mux_pc_src(A_out, ALU_res, ALU, Concat_out, control_signal, output_pc_src);
 mux_pc_src 		mymux_pc_src(Da, ALU_RES_out, ALU_result, concat_out, sig_pc_src, output_pc_src);
 //PC_WE_handler(ALUzero_out, pc_we, handler_out);
 PC_WE_handler 		myPC_WE_handler(ALUzero_out, sig_pc_we, pc_handler_out);
@@ -30,7 +31,7 @@ mux_DST 		mymux_DST(Rd_IR, Rt_IR, value31_out, sig_dst, output_DST);
 wordlatches_nowren	myMDR(clk, data_memory_out, MDR_out);
 TwoInputMuxes		mux_reg_in(MDR_out, ALU_RES_out, sig_reg_in, Dw);
 //RegisterFile(clk, Aw, Ab, Aa, Dw, Db, Da, WrEn);
-RegisterFile  		myRegisterFile(clk, output_DST, Rt_IR, Rs_IR, Dw, Db, Da, sig_reg_we, v1, stackpointer, a0, a1, v0); //v1 is the output, should be 58
+RegisterFile  		myRegisterFile(clk, output_DST, Rt_IR, Rs_IR, Dw, Db, Da, sig_reg_we, v1, stackpointer, a0, a1, v0, at); //v1 is the output, should be 58
 TwoInputMuxes 		mux_data_mem_in(pc_output, ALU_RES_out, sig_mem_in, data_mem_address);//0=PC, 1=ALU_RES
 //DataMemory(clk, dataOut, address, writeEnable, dataIn);
 DataMemory    		myDataMemory(clk, data_memory_out, data_mem_address, sig_mem_we, Db);
@@ -53,18 +54,22 @@ endmodule
 module testCPU;
 reg             clk;
 wire[31:0]      instruction;
-wire[3:0]       state_out;
+wire[4:0]       state_out;
 wire[31:0] 	pc_output;
-wire[31:0]	stackpointer, v0, v1, a0, a1, ALU_result, ALU_RES_out, operandA, operandB, Dw, output_pc_src;
+wire[31:0]	stackpointer, v0, v1, a0, a1, ALU_result, ALU_RES_out, operandA, operandB, Dw, output_pc_src, data_memory_out, data_mem_address, concat_out, at;
 wire[4:0]	output_DST,Rd_IR, Rt_IR, Rs_IR;
-wire sig_reg_in, sig_reg_we, pc_handler_out;
+wire sig_reg_in, sig_reg_we, pc_handler_out, sig_ir_we;
 wire[1:0] sig_dst, sig_pc_src;
-CPU myCPUtest(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw,Rd_IR, Rt_IR, Rs_IR,  sig_dst, sig_reg_in, sig_reg_we,  output_pc_src, sig_pc_src, pc_handler_out);
+CPU myCPUtest(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw,Rd_IR, Rt_IR, Rs_IR,  sig_dst, sig_reg_in, sig_reg_we,  output_pc_src, sig_pc_src, pc_handler_out, sig_ir_we, data_memory_out, data_mem_address, concat_out, at);
 initial clk=0;
 always #2000 clk=!clk;
 
 initial begin
 #270000
-$display("Final Output %b", v1);
+$display("270000");
+#270000
+$display("540000");
+#100000
+$display("640000");
 end
 endmodule 
