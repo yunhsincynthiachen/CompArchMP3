@@ -1,4 +1,5 @@
 module value4(four_out);
-output four_out[31:0] = 0x04;
+output[31:0] four_out;
+assign four_out = 'b00000000000000000000000000000100;
 
 endmodule 

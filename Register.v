@@ -1,11 +1,13 @@
 module RegisterFile(clk,		// Contents of first register read
-               Aw,		// Contents of second register read
-               Ab,		// Contents to write to register
-               Aa,	// Address of first register to read 
-               Dw,	// Address of second register to read
-               Db,	// Address of register to write
-               Da,		// Enable writing of register when High
-               WrEn);		// Clock (Positive Edge Triggered)
+		Aw,		// Contents of second register read
+		Ab,		// Contents to write to register
+		Aa,	// Address of first register to read 
+		Dw,	// Address of second register to read
+		Db,	// Address of register to write
+		Da,		// Enable writing of register when High
+		WrEn,		// Clock (Positive Edge Triggered)
+		v1output); //value of register v1, x03
+			
 
 output[31:0]	Da;
 output[31:0]	Db;
@@ -15,10 +17,11 @@ input[4:0]	Ab;
 input[4:0]	Aw;
 input		WrEn;
 input		clk;
-
+output[31:0]	v1output;
 
 wire[31:0] decoder_out;
 wire[31:0] q[31:0];
+assign v1output = q[3];
 
 // The decoder is instantiated, as specified by the diagram
 decoder1to32 decoder(decoder_out, WrEn, Aw);
@@ -41,6 +44,7 @@ mux32to1by32 mux2(Db, Ab, q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], 
 
 endmodule
 
+/*
 // Validates your hw4testbench by connecting it to various functional 
 // or broken register files and verifying that it correctly identifies 
 module hw4testbenchharness;
@@ -227,7 +231,7 @@ endtest = 1;
 end
 
 endmodule
-
+*/
 
 
 module decoder1to32(out, enable, address);
@@ -326,4 +330,5 @@ assign mux[30] = input30;
 assign mux[31] = input31;
 
 assign out=mux[address]; // Connects the output of the array
-endmodule
+endmodule
+

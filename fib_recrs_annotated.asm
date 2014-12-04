@@ -1,5 +1,6 @@
 #Michael Bocamazo, 2014/11/28
 #Fibonacci Recursive Implementation
+li $sp 0x3ffc
 li $v0, 0
 li $a0, 4 #value of N
 li $a1, 0 #return address
@@ -11,7 +12,8 @@ li $a1, 0 #return address
 jal fib
 add $v1, $v1, $v0
 li $v0, 10 #10 means exit, special for syscalls
-syscall
+end:
+jal end
 fib:
 beq $a0, 0, ret0
 beq $a0, 1, ret1 #if(N==1) or (N==0), return 1

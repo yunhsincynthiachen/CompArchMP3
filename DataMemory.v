@@ -17,7 +17,7 @@ always @(posedge clk) begin
 	end
 end
 
-initial $readmemh("file.dat", mem);
+initial $readmemh("f2dump.dat", mem);
 assign dataOut = mem[addr];
 endmodule 
 

@@ -1,13 +1,13 @@
 // defining gates with proper delays
-`define NOTGATE not #10
-`define BUFGATE buf #20
-`define NANDGATE nand #20
-`define NORGATE nor #20
-`define ANDGATE and #30
-`define ANDGATE4 and #50
-`define ORGATE or #30
-`define ORGATE5 or #60
-`define XORGATE xor #60
+`define NOTGATE not #1
+`define BUFGATE buf #1
+`define NANDGATE nand #1
+`define NORGATE nor #1
+`define ANDGATE and #1
+`define ANDGATE4 and #1
+`define ORGATE or #1
+`define ORGATE5 or #1
+`define XORGATE xor #1
 
 // defining ALU commands as words
 `define ADD 1'd0
