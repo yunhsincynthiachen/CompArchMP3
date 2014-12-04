@@ -1,15 +1,16 @@
-module IrRegistersALU(clk, instr_in, ir_we, ALU_out, zero, Dw, WrEn,control_signalDST,control_signalALUa,control_signalALUb,command,pc_in);
+module IrRegistersALU(clk, instr_in, ir_we, ALU_out, zero, Dw, WrEn,control_signalDST,control_signalALUa,control_signalALUb,command,pc_in,Rd,Rt,Rs,output_wordA,output_wordB,Da,Db);
 //Input goes into instruction register, each part of it goes into different places
 //Things that need clk: ir, register file, wordlatches
 input clk, ir_we, WrEn, command, control_signalALUa;
-input[31:0] instr_in, Dw, pc_in;
+input[31:0] instr_in, Dw, pc_in, output_wordA,output_wordB,Da,Db;
 input[1:0] control_signalDST, control_signalALUb;
+output[4:0] Rd, Rt, Rs;
 output[31:0] ALU_out;
 output zero;
 
 wire[15:0] imm16;
-wire[4:0] Rd,Rt,Rs, value31, output_DST;
-wire[31:0] Db, Da, v1output, output_wordA, output_wordB, output_ALUsrcA, four_out, output_ALUsrcB, signextend_out,instr_out;
+wire[4:0] value31, output_DST;
+wire[31:0] v1output, output_ALUsrcA, four_out, output_ALUsrcB, signextend_out,instr_out;
 wire carryout, overflow;
 
 InstructionRegister ir(clk,instr_in,instr_out, imm16, Rd, Rt, Rs, ir_we);
@@ -27,29 +28,39 @@ ALU alustuff(ALU_out, carryout, zero, overflow, output_ALUsrcA, output_ALUsrcB, 
 endmodule 
 
 module test_IrRegistersALU;
-wire[31:0] ALU_out;
+wire[31:0] ALU_out, output_wordA,output_wordB,Da,Db;
 wire zero;
+wire[4:0] Rd,Rt,Rs;
 reg[31:0] instr_in, Dw, pc_in;
 reg[1:0] control_signalDST, control_signalALUb;
 reg clk, ir_we, WrEn, command, control_signalALUa;
 
-IrRegistersALU irregalutest(clk, instr_in, ir_we, ALU_out, zero, Dw, WrEn,control_signalDST,control_signalALUa,control_signalALUb,command,pc_in);
+IrRegistersALU irregalutest(clk, instr_in, ir_we, ALU_out, zero, Dw, WrEn,control_signalDST,control_signalALUa,control_signalALUb,command,pc_in,Rd,Rt,Rs,output_wordA,output_wordB,Da,Db);
 
 initial clk=0;
 always #10 clk=!clk;    // 50MHz Clock
 
 initial begin
-instr_in={4'b1101,5'b0,7'b1110111,8'b10101010,8'b0};
-#10
-Dw={5'b0,5'b11111,22'b0};
-ir_we = 'b1;
-#10
-WrEn = 'b1;
-#10
+instr_in={4'b1101,5'b00101,7'b0100111,8'b10101010,8'b0};
 pc_in = {10'b0,5'b11111,17'b0};
+#40
+Dw={4'b1101,5'b00001,7'b0100111,8'b10101010,8'b0};
+ir_we = 'b1;
+#20
+control_signalDST = 2'b01; //should pull Rt
+WrEn = 'b1;
+#20
+Dw={4'b1101,5'b00001,7'b0100111,8'b10101010,8'b0};
+ir_we = 'b1;
 control_signalDST = 2'b00; //should pull Rd
+WrEn = 'b1;
+#20
+WrEn = 'b0;
+#20
 control_signalALUa = 'b1; //should pull A
+#20
 control_signalALUb = 2'b01; //should pull B
-command = 'b0;
+#20
+command = 1'b0;
 end
 endmodule 
