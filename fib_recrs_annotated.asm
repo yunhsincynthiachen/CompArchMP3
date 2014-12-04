@@ -5,7 +5,7 @@ li $v0, 0
 li $a0, 4 #value of N
 li $a1, 0 #return address
 jal fib
-move $v1, $v0 #moves the result to $v1
+add $v1, $0, $v0 #moves the result to $v1
 li $v0, 0
 li $a0, 10 #value of N
 li $a1, 0 #return address
