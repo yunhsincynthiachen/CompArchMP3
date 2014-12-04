@@ -15,7 +15,7 @@ assign opcode_secondary = data_memory_out[31:26];
 wire[4:0] funct4;
 wire[4:0] funct4_secondary;
 assign funct4 = instruction[3:0]; //the final four bits differentiate between ADD and JR
-assign funct4_secondary = instruction[3:0];
+assign funct4_secondary = data_memory_out[3:0];
 reg[4:0] state   = 'b10000;//start in the BOOT_STATE
 //assign state_out = state;
 
@@ -82,7 +82,7 @@ always @(posedge clk) begin
 	case(state)
 //		state_IF: begin 
 		0: begin
-//		$display("state IF");
+		$display("state IF");
 		pc_we <= 1;
 		ir_we <= 1;
 		state_out <= state_ID_undifferentiated;
@@ -103,20 +103,23 @@ always @(posedge clk) begin
 
 
 		state_ID_undifferentiated: begin
+		$display("data_memory_out %h", data_memory_out);
+		$display("opcode_secondary %b", opcode_secondary);
+		$display("funct4_secondary %b", funct4_secondary);
 		if ((opcode_secondary == opcode_ADD) && (funct4_secondary == funct4_ADD)) begin //emits no control signals
-//			$display("state_ID_SW_LW_ADD_ADDI");
+			$display("state_ID_SW_LW_ADD_ADDI");
 			state_out <= state_EX_ADD;
 		end
 		if ((opcode_secondary == opcode_ADDI)||(opcode_secondary == opcode_ADDIU)) begin
-//			$display("state_ID_SW_LW_ADD_ADDI");
+			$display("state_ID_SW_LW_ADD_ADDI");
 			state_out <= state_EX_ADDI;
 		end
 		if ((opcode_secondary == opcode_SW)||(opcode_secondary == opcode_LW)) begin
-//			$display("state_ID_SW_LW_ADD_ADDI");
+			$display("state_ID_SW_LW_ADD_ADDI");
 			state_out <= state_EX_SW_LW;
 		end
 		if (opcode_secondary == opcode_JAL) begin
-//			$display("state_ID_JAL");
+			$display("state_ID_JAL");
 			pc_we <= 1;
 			reg_we <=1;
 			dst <= 2;
@@ -132,7 +135,7 @@ always @(posedge clk) begin
 			state_out <= state_IF;
 		end
 		if (opcode_secondary == opcode_BEQ) begin
-//			$display("state_ID_BEQ");
+			$display("state_ID_BEQ");
 			ALUsrcB <= 3;
 			state_out <= state_EX_BEQ;
 		end
@@ -174,7 +177,7 @@ always @(posedge clk) begin
 		end
 
 		state_EX_JAL: begin
-//		$display("state_EX_JAL");
+		$display("state_EX_JAL");
 		//no control signals emitted (all of value zero)
 		state_out <= state_WB_JAL;
 		end
@@ -190,7 +193,7 @@ always @(posedge clk) begin
 		end
 
 		state_EX_SW_LW: begin
-//		$display("state_EX_SW_LW");
+		$display("state_EX_SW_LW");
 		ALUsrcA <= 1;
 		ALUsrcB <= 2;
 		if (opcode == opcode_SW) begin
@@ -202,14 +205,14 @@ always @(posedge clk) begin
 		end
 
 		state_EX_ADD: begin
-//		$display("state_EX_ADD");
+		$display("state_EX_ADD");
 		ALUsrcA <= 1;
 		ALUsrcB <= 1;
 		state_out <= state_WB_ADD;
 		end
 		
 		state_EX_ADDI: begin	
-//		$display("state_EX_ADDI");
+		$display("state_EX_ADDI");
 		ALUsrcA <= 1;
 		ALUsrcB <= 2;
 		state_out <= state_WB_ADDI;
@@ -223,7 +226,7 @@ always @(posedge clk) begin
 		end
 
 		state_MEM_LW: begin
-//		$display("state_MEM_LW");
+		$display("state_MEM_LW");
 		mem_in <= 1;
 		state_out <= state_WB_LW;
 		end

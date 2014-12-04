@@ -1,16 +1,16 @@
-module CPU(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw, Rd_IR, Rt_IR, Rs_IR, sig_dst, sig_reg_in, sig_reg_we, output_pc_src, sig_pc_src, pc_handler_out, sig_ir_we, data_memory_out, data_mem_address, concat_out, at, ra); 
+module CPU(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw, Rd_IR, Rt_IR, Rs_IR, sig_dst, sig_reg_in, sig_reg_we, output_pc_src, sig_pc_src, pc_handler_out, sig_ir_we, data_memory_out, data_mem_address, concat_out, at, ra, Da, Db); 
 input clk;
 output[31:0] instruction;
 output[4:0] state_out;
 output[31:0] pc_output;
-output[31:0] v1, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out,  operandA, operandB, Dw, output_pc_src, data_memory_out, data_mem_address, concat_out, at, ra;
+output[31:0] v1, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out,  operandA, operandB, Dw, output_pc_src, data_memory_out, data_mem_address, concat_out, at, ra, Da, Db;
 output[4:0] Rd_IR, Rt_IR, Rs_IR, output_DST;
 output[1:0] sig_dst, sig_pc_src;
 output sig_reg_in, sig_reg_we, pc_handler_out, sig_ir_we;
 wire sig_mem_we, sig_mem_in, sig_ALUsrcA, sig_ALUop; //single bit control sigs
 wire[1:0]  sig_pc_we, sig_ALUsrcB; //two bit control sigs
 
-wire [31:0] Da, Db, Dw, MDR_out, signextend_out;
+wire [31:0] Dw, MDR_out, signextend_out;
 wire [15:0] imm16;
 wire [4:0]  value31_out;
 wire [31:0]  value4_out;
@@ -59,11 +59,11 @@ reg             clk;
 wire[31:0]      instruction;
 wire[4:0]       state_out;
 wire[31:0] 	pc_output;
-wire[31:0]	stackpointer, v0, v1, a0, a1, ALU_result, ALU_RES_out, operandA, operandB, Dw, output_pc_src, data_memory_out, data_mem_address, concat_out, at, ra;
+wire[31:0]	stackpointer, v0, v1, a0, a1, ALU_result, ALU_RES_out, operandA, operandB, Dw, output_pc_src, data_memory_out, data_mem_address, concat_out, at, ra, Da, Db;
 wire[4:0]	output_DST,Rd_IR, Rt_IR, Rs_IR;
 wire sig_reg_in, sig_reg_we, pc_handler_out, sig_ir_we;
 wire[1:0] sig_dst, sig_pc_src;
-CPU myCPUtest(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw,Rd_IR, Rt_IR, Rs_IR,  sig_dst, sig_reg_in, sig_reg_we,  output_pc_src, sig_pc_src, pc_handler_out, sig_ir_we, data_memory_out, data_mem_address, concat_out, at, ra);
+CPU myCPUtest(clk, instruction, state_out, v1, pc_output, stackpointer, a0, a1, v0, ALU_result, ALU_RES_out, operandA, operandB, output_DST, Dw,Rd_IR, Rt_IR, Rs_IR,  sig_dst, sig_reg_in, sig_reg_we,  output_pc_src, sig_pc_src, pc_handler_out, sig_ir_we, data_memory_out, data_mem_address, concat_out, at, ra, Da, Db);
 initial clk=0;
 always #2000 clk=!clk;
 

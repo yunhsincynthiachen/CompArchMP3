@@ -20,6 +20,8 @@ sim:/testCPU/a1\
 sim:/testCPU/v0\
 sim:/testCPU/v1\
 sim:/testCPU/ra\
+sim:/testCPU/Da\
+sim:/testCPU/Db\
 sim:/testCPU/ALU_result\
 sim:/testCPU/ALU_RES_out\
 sim:/testCPU/operandA\
@@ -33,6 +35,6 @@ sim:/testCPU/sig_dst\
 sim:/testCPU/sig_reg_in\
 sim:/testCPU/sig_reg_we
 
-run 700000
+run 750000
 
 wave zoom full
