@@ -39,7 +39,7 @@ initial clk=0;
 always #10 clk=!clk;    // 50MHz Clock
 
 initial begin
-instr_in={4'b1111,24'b0,4'b1111};
+instr_in={4'b1101,5'b0,7'b1110111,8'b10101010,8'b0};
 #10
 Dw={5'b0,5'b11111,22'b0};
 ir_we = 'b1;
@@ -47,9 +47,9 @@ ir_we = 'b1;
 WrEn = 'b1;
 #10
 pc_in = {10'b0,5'b11111,17'b0};
-control_signalDST = 2'b00;
-control_signalALUa = 'b1;
-control_signalALUb = 2'b01;
+control_signalDST = 2'b00; //should pull Rd
+control_signalALUa = 'b1; //should pull A
+control_signalALUb = 2'b01; //should pull B
 command = 'b0;
 end
 endmodule 
