@@ -118,8 +118,12 @@ always @(posedge clk) begin
 		if (opcode_secondary == opcode_JAL) begin
 //			$display("state_ID_JAL");
 			pc_we <= 1;
+			reg_we <=1;
+			dst <= 2;
+			reg_in <= 1;
 			pc_src <= 3;
-			state_out <= state_EX_JAL;
+//			state_out <= state_EX_JAL;
+			state_out <= state_IF;
 		end
 		if ((opcode_secondary == opcode_JR)&&(funct4_secondary == funct4_JR)) begin
 			$display("state_ID_JR");
@@ -129,7 +133,7 @@ always @(posedge clk) begin
 		end
 		if (opcode_secondary == opcode_BEQ) begin
 //			$display("state_ID_BEQ");
-			ALUsrcB <= 2;
+			ALUsrcB <= 3;
 			state_out <= state_EX_BEQ;
 		end
 		end
