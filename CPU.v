@@ -11,7 +11,7 @@ wire sig_ALUsrcA, sig_ALUop; //single bit control sigs
 wire[1:0]  sig_pc_we, sig_ALUsrcB; //two bit control sigs
 
 wire [31:0] Dw, MDR_out, signextend_out;
-wire [15:0] imm16;
+wire [15:0] imm16; 
 wire [4:0]  value31_out;
 wire [31:0]  value4_out;
 wire ALUzero_out, carryout, overflow;
