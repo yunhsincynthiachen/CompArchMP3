@@ -11,10 +11,10 @@ output reg[15:0] imm16;
 always @(posedge clk) begin
 	if(ir_we) begin
 	instr_out = instr_in;
-	imm16 = instr_in[31:15]; // first 16 bits
-	Rd = instr_in[14:10]; // next 5 bits
-	Rt = instr_in[9:5]; // next 5 bits
-	Rs = instr_in[4:0]; // next 5 bits
+	imm16 = instr_in[15:0]; // first 16 bits
+	Rd = instr_in[15:11]; // next 5 bits
+	Rt = instr_in[20:16]; // next 5 bits
+	Rs = instr_in[25:21]; // next 5 bits
 	end
 end
 endmodule
@@ -33,7 +33,7 @@ always #10 clk=!clk;    // 50MHz Clock
 
 initial begin
 $display("instr_in | instr_out  Rd  Rt  Rs  imm16");
-instr_in={32'b0};
+instr_in=31'b00100100000001010000000000000000;
 ir_we=0;
 #10
 instr_in={5'b11111,5'b0,5'b11111,5'b0,5'b11111,5'b0,2'b11};
@@ -41,6 +41,7 @@ ir_we=1;
 #10
 instr_in={9'b1,23'b0};
 ir_we=0;
+#10
 $display("%b | %b  %b  %b  %b  %b", instr_in, instr_out, Rd, Rt, Rs, imm16);
 end
 endmodule 
