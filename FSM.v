@@ -59,7 +59,7 @@ parameter opcode_JR 			= 'b000000;
 parameter opcode_JAL			= 'b000011;
 parameter opcode_BEQ 			= 'b000100;
 parameter opcode_SW 			= 'b101011;
-parameter opcode_LW 			= 'b100000;
+parameter opcode_LW 			= 'b100011;
 
 parameter funct4_ADD			= 'b0000;
 parameter funct4_JR 			= 'b1000;
@@ -103,9 +103,9 @@ always @(posedge clk) begin
 
 
 		state_ID_undifferentiated: begin
-//		$display("data_memory_out %h", data_memory_out);
-//		$display("opcode_secondary %b", opcode_secondary);
-//		$display("funct4_secondary %b", funct4_secondary);
+		$display("data_memory_out %h", data_memory_out);
+		$display("opcode_secondary %b", opcode_secondary);
+		$display("funct4_secondary %b", funct4_secondary);
 		if ((opcode_secondary == opcode_ADD) && (funct4_secondary == funct4_ADD)) begin //emits no control signals
 			$display("state_ID_SW_LW_ADD_ADDI");
 			state_out <= state_EX_ADD;

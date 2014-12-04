@@ -38,6 +38,6 @@ sim:/testCPU/sig_dst\
 sim:/testCPU/sig_reg_in\
 sim:/testCPU/sig_reg_we
 
-run 750000
+run 2000000
 
 wave zoom full
