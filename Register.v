@@ -6,7 +6,7 @@ module RegisterFile(clk,		// Contents of first register read
 		Db,	// Address of register to write
 		Da,		// Enable writing of register when High
 		WrEn,		// Clock (Positive Edge Triggered)
-		v1output, //value of register v1, x03
+		v1, //value of register v1, x06
 		stackpointer,
 		a0,
 		a1,
@@ -23,7 +23,7 @@ input[4:0]	Ab;
 input[4:0]	Aw;
 input		WrEn;
 input		clk;
-output[31:0]	v1output;
+output[31:0]	v1;
 output[31:0] 	stackpointer;
 output[31:0]	a0;
 output[31:0]	a1;
@@ -32,7 +32,7 @@ output[31:0]	at;
 output[31:0]	ra;
 wire[31:0] decoder_out;
 wire[31:0] q[31:0];
-assign v1output = q[3];
+assign v1 = q[3];
 assign stackpointer = q[29];
 assign a0	= q[4];
 assign a1	= q[5];

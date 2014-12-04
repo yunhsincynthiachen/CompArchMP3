@@ -17,9 +17,9 @@ always @(posedge clk) begin
 	end
 end
 
-initial $readmemh("f2dump.dat", mem);
+initial $readmemh("f3dump.dat", mem);
 assign dataOut = mem[addr/4];
-assign topstack = mem[4094];
+assign topstack = mem[4090];
 endmodule 
 
 module test_data_memory;
