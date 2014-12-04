@@ -47,9 +47,9 @@ ir_we = 'b1;
 WrEn = 'b1;
 #10
 pc_in = {10'b0,5'b11111,17'b0};
-control_signalDST = 'b00;
+control_signalDST = 2'b00;
 control_signalALUa = 'b1;
-control_signalALUb = 'b01;
+control_signalALUb = 2'b01;
 command = 'b0;
 end
 endmodule 
