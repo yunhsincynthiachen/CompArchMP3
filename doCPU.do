@@ -5,7 +5,28 @@ add wave -position insertpoint  \
 sim:/testCPU/clk \
 sim:/testCPU/instruction \
 sim:/testCPU/state_out \
-sim:/testCPU/v1
-run 30000
+sim:/testCPU/v1\
+sim:/testCPU/pc_output\
+sim:/testCPU/sig_pc_src\
+sim:/testCPU/output_pc_src\
+sim:/testCPU/pc_handler_out\
+sim:/testCPU/stackpointer\
+sim:/testCPU/a0\
+sim:/testCPU/a1\
+sim:/testCPU/v0\
+sim:/testCPU/ALU_result\
+sim:/testCPU/ALU_RES_out\
+sim:/testCPU/operandA\
+sim:/testCPU/operandB\
+sim:/testCPU/Dw\
+sim:/testCPU/output_DST\
+sim:/testCPU/Rd_IR\
+sim:/testCPU/Rs_IR\
+sim:/testCPU/Rt_IR\
+sim:/testCPU/sig_dst\
+sim:/testCPU/sig_reg_in\
+sim:/testCPU/sig_reg_we
+
+run 100000
 
 wave zoom full

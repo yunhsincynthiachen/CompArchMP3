@@ -15,6 +15,7 @@ always @(posedge clk) begin
 	Rd = instr_in[15:11]; // next 5 bits
 	Rt = instr_in[20:16]; // next 5 bits
 	Rs = instr_in[25:21]; // next 5 bits
+//	$display("%h", instr_out);
 	end
 end
 endmodule
@@ -33,7 +34,7 @@ always #10 clk=!clk;    // 50MHz Clock
 
 initial begin
 $display("instr_in | instr_out  Rd  Rt  Rs  imm16");
-instr_in=31'b00100100000001010000000000000000;
+instr_in={5'b11111,5'b0,5'b11111,5'b0,5'b11111,5'b0,2'b11};
 ir_we=0;
 #10
 instr_in={5'b11111,5'b0,5'b11111,5'b0,5'b11111,5'b0,2'b11};

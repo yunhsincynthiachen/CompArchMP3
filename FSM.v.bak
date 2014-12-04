@@ -2,11 +2,11 @@ module FSM(clk, instruction, pc_we, mem_we, ir_we, reg_we, mem_in, dst, reg_in, 
 input clk;
 input[31:0] instruction;
 input[3:0] state_in; //feedback from the FSM itself for progression
-output reg[3:0] state_out; //the next state (phase), which will be read in on the next cycle
-output reg mem_we, ir_we, reg_we, mem_in, reg_in, ALUsrcA, ALUop;
+output reg[3:0] state_out = 'b0000; //the next state (phase), which will be read in on the next cycle
+//output reg mem_we, ir_we, reg_we, mem_in, reg_in, ALUsrcA, ALUop;
 //there are 11 control signals out
 //How many bits in the ALUopcode? Should only be 1 for ADD/SUB, but not extensible
-output reg[1:0]  pc_we, dst, ALUsrcB, pc_src;
+//output reg[1:0]  pc_we, dst, ALUsrcB, pc_src;
 
 wire[5:0] opcode;
 assign opcode = instruction[31:26]; //the leading 6 bits compose the opcode
@@ -14,6 +14,19 @@ wire[4:0] funct4;
 assign funct4 = instruction[3:0]; //the final four bits differentiate between ADD and JR
 reg[3:0] state   = 'b0000;//start in the IF phase
 //assign state_out = state;
+
+//initialize to instrfetch signals
+output reg mem_we = 0;
+output reg ir_we = 0;
+output reg reg_we = 0;
+output reg mem_in = 0;
+output reg reg_in = 0;
+output reg ALUsrcA = 0;
+output reg ALUop = 0;
+output reg[1:0] pc_we = 0;
+output reg[1:0] dst = 0;
+output reg[1:0] ALUsrcB = 0;
+output reg[1:0] pc_src = 0;
 
 parameter state_IF			= 0;
 parameter state_ID_JAL			= 1;
@@ -61,7 +74,8 @@ always @(posedge clk) begin
 	state = state_in;// needs to be a blocking assignment so that the case statement uses the new state
 	
 	case(state)
-		state_IF: begin 
+//		state_IF: begin 
+		0: begin
 		$display("state IF");
 		pc_we <= 1;
 		ir_we <= 1;
@@ -152,6 +166,7 @@ always @(posedge clk) begin
 		$display("state_EX_ADDI");
 		ALUsrcA <= 1;
 		ALUsrcB <= 2;
+		dst <= 1;
 		state_out <= state_WB_ADDI;
 		end
 		
@@ -204,3 +219,24 @@ always @(posedge clk) begin
 end
 
 endmodule
+
+module testFSM;
+reg clk;
+reg[31:0] instruction;
+wire mem_we, ir_we, reg_we, mem_in, reg_in, ALUsrcA, ALUop;
+wire[1:0] ALUsrcB, pc_src, dst, pc_we;
+wire[3:0] state_in, state_out;
+//reg state_in;
+//initial state_in = 'b0000;
+initial clk=0;
+always #2 clk=!clk;
+
+FSM myFSMtest(clk, instruction, pc_we, mem_we, ir_we, reg_we, mem_in, dst, reg_in, ALUsrcA, ALUsrcB, ALUop, pc_src, state_out, state_out);
+initial clk=0;
+initial instruction = 'b00100100000001010000000000000000;
+initial begin
+#100
+clk = 1;
+
+end
+endmodule 

@@ -29,7 +29,7 @@ module wordlatches_wren(clk, input_word, output_word, pc_wren);
 input clk;
 input[31:0] input_word;
 input pc_wren;
-output reg[31:0] output_word;
+output reg[31:0] output_word = 'b00000000000000000000000000000000;
 
 always @(posedge clk) begin
 	if(pc_wren) begin 
@@ -37,6 +37,7 @@ always @(posedge clk) begin
 	end
 end
 endmodule 
+
 module test_wordlatches_wren;
 wire[31:0] output_word;
 reg[31:0] input_word;

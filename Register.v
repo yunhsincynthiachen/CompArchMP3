@@ -6,7 +6,11 @@ module RegisterFile(clk,		// Contents of first register read
 		Db,	// Address of register to write
 		Da,		// Enable writing of register when High
 		WrEn,		// Clock (Positive Edge Triggered)
-		v1output); //value of register v1, x03
+		v1output, //value of register v1, x03
+		stackpointer,
+		a0,
+		a1,
+		v0);
 			
 
 output[31:0]	Da;
@@ -18,11 +22,17 @@ input[4:0]	Aw;
 input		WrEn;
 input		clk;
 output[31:0]	v1output;
-
+output[31:0] 	stackpointer;
+output[31:0]	a0;
+output[31:0]	a1;
+output[31:0]	v0;
 wire[31:0] decoder_out;
 wire[31:0] q[31:0];
 assign v1output = q[3];
-
+assign stackpointer = q[31];
+assign a0	= q[4];
+assign a1	= q[5];
+assign v0	= q[2];
 // The decoder is instantiated, as specified by the diagram
 decoder1to32 decoder(decoder_out, WrEn, Aw);
 
@@ -273,13 +283,14 @@ module register32zero(q, d, wrenable, clk);
 input[31:0] d;
 input wrenable;
 input clk;
-output reg[31:0] q;
-
+output[31:0] q;
+assign q = 'b00000000000000000000000000000000;
+/*
 always @(posedge clk) begin
     if(wrenable) begin
 	assign q = 'b00000000000000000000000000000000;
     end
-end
+end*/
 endmodule
 
 

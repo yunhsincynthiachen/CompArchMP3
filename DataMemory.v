@@ -6,10 +6,10 @@ module DataMemory(clk, dataOut, address, writeEnable, dataIn);
 input clk, writeEnable;
 input[31:0] dataIn, address;
 output[31:0] dataOut;
-wire[9:0] addr;
-assign addr = address[9:0];
+wire[13:0] addr;
+assign addr = address[13:0];
 
-reg[31:0] mem[1023:0];
+reg[31:0] mem[16384:0];
 
 always @(posedge clk) begin
 	if(writeEnable) begin

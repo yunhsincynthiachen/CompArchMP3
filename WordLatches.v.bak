@@ -55,5 +55,6 @@ input_word={5'b11111,27'b0};
 pc_wren=1;
 #10
 input_word={9'b1,23'b0};
+pc_wren=0;
 end
 endmodule 
