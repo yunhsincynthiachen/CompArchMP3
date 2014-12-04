@@ -9,8 +9,8 @@ wire[1:0]  sig_pc_we, sig_dst, sig_ALUsrcB, sig_pc_src; //two bit control sigs
 
 wire [31:0] output_pc_src, pc_output, Da, Db, Dw, ALU_RES_out, ALU_result, concat_out, data_memory_out, MDR_out, data_mem_address, signextend_out, operandA, operandB;
 wire [15:0] imm16;
-wire [4:0]  Rd_IR, Rt_IR, Rs_IR, value31_out;
-wire [1:0]  value4_out;
+wire [4:0]  Rd_IR, Rt_IR, Rs_IR, value31_out, output_DST;
+wire [31:0]  value4_out;
 wire pc_handler_out, ALUzero_out, carryout, overflow;
 
 FSM myFSM(clk, instruction, sig_pc_we, sig_mem_we, sig_ir_we, sig_reg_we, sig_mem_in, sig_dst, sig_reg_in, sig_ALUsrcA, sig_ALUsrcB, sig_ALUop, sig_pc_src, state_out, state_out);
@@ -50,8 +50,8 @@ endmodule
 module testCPU;
 reg             clk;
 wire[31:0]      instruction;
-wire[4:0]       state_out;
-wire[4:0]       v1;
+wire[3:0]       state_out;
+wire[31:0]       v1;
 
 CPU myCPUtest(clk, instruction, state_out, v1);
 initial clk=0;
